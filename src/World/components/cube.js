@@ -5,21 +5,36 @@ import {
   Mesh, 
   MeshBasicMaterial, 
   MeshStandardMaterial, 
+  SRGBColorSpace,
+  TextureLoader,
   TorusGeometry } from "three"
+
+  import { uvtestbw, uvtestcol } from "../../../assets/assets"
 
 //Helpers
 const degreesPerSecond = 30
 const radiansPerSecond = MathUtils.degToRad(degreesPerSecond)
 
 
+function createMaterial() {
+
+  const textureLoader = new TextureLoader()
+  const texture = textureLoader.load(uvtestcol)
+  const metal = textureLoader.load(uvtestbw)
+  texture.colorSpace = SRGBColorSpace
+  const materialSpec = {
+    map: texture,
+  }
+  const material = new MeshStandardMaterial(materialSpec)
+  return material
+
+}
+
 //Cube
 function createCube() {
   const geometry = new BoxGeometry(2, 2, 2)
   
-  const spec = {
-    color: 'purple'
-  }
-  const material = new MeshStandardMaterial(spec)
+  const material = createMaterial()
   const cube = new Mesh(geometry, material)
 
   cube.rotation.set(-0.5, -0.1, 0.8)
@@ -43,7 +58,7 @@ function createCapsule() {
   const spec = {
     color: 'green'
   }
-  const material = new MeshStandardMaterial(spec)
+  const material = createMaterial()
   const capsule = new Mesh(geometry, material)
   capsule.position.set(1, 1, 2)
 
@@ -62,7 +77,7 @@ function createTorus() {
   const spec = {
     color: 'pink'
   }
-  const material = new MeshStandardMaterial(spec)
+  const material = createMaterial()
   const torus = new Mesh(geometry, material)
   torus.position.set(1, 1, 2)
   torus.scale.set(1, 1, 1)

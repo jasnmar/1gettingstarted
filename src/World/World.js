@@ -32,6 +32,8 @@ class World {
 
     loop.updatables.push(cube)
     loop.updatables.push(torus)
+    loop.updatables.push(camera)
+    // loop.updatables.push(capsule)
 
     scene.add(cube)
     scene.add(torus)
@@ -51,7 +53,6 @@ class World {
     renderer.render(scene, camera);
   }
   start() {
-    
     loop.start()
   }
   stop() {
